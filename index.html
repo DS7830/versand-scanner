@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1601,29 +1601,30 @@ setTimeout(async () => {
   }
 }, 2000);
 
-// Zebra TC21 scaling
+// Mobile scaling - simple and reliable
 (function() {
-  function applyScale() {
-    var vw = window.innerWidth;
-    var style = document.getElementById('tc-scale') || document.createElement('style');
-    style.id = 'tc-scale';
-    // TC21 reports ~480px innerWidth
-    // If smaller than 520px we scale up aggressively
-    var base = vw < 520 ? 19 : vw < 700 ? 17 : 14;
-    style.innerHTML =
-      'html { font-size: ' + base + 'px !important; }' +
-      'body { overflow-x: hidden !important; }' +
-      '.scanner-page { width: 100% !important; padding: 8px !important; }' +
-      '.fili-grid { grid-template-columns: repeat(4,1fr) !important; }' +
-      '.fili-btn { min-height: 58px !important; font-size: ' + (base+1) + 'px !important; font-weight:700 !important; }' +
-      'input,select { min-height: 54px !important; font-size: ' + (base+2) + 'px !important; }' +
-      'button[id$="-submit"] { min-height: 68px !important; font-size: ' + (base+4) + 'px !important; font-weight:700 !important; width:100% !important; }' +
-      '.btn-full { width:100% !important; }' +
-      '.card { padding: 12px 10px !important; }';
-    document.head.appendChild(style);
-  }
-  applyScale();
-  window.addEventListener('resize', applyScale);
+  var style = document.getElementById('mob-scale') || document.createElement('style');
+  style.id = 'mob-scale';
+  style.innerHTML = [
+    'html { font-size: 16px; }',
+    'body { overflow-x: hidden; width: 100%; }',
+    '.scanner-page { width: 100%; padding: 10px; }',
+    '.fili-grid { grid-template-columns: repeat(4,1fr); gap: 6px; }',
+    '.fili-btn { padding: 14px 4px; font-size: 16px; font-weight: 700; min-height: 52px; }',
+    '.card { padding: 12px 10px; margin-bottom: 10px; }',
+    '.card-title { font-size: 13px; }',
+    'label.field-lbl { font-size: 13px; }',
+    'input[type=text],input[type=password],input[type=number],input[type=date],select { font-size: 16px; padding: 12px 10px; min-height: 50px; width: 100%; }',
+    '.btn { font-size: 15px; padding: 11px 14px; }',
+    '.btn-full { width: 100%; padding: 14px; font-size: 17px; font-weight: 700; }',
+    'button[id$="-submit"] { width: 100% !important; min-height: 60px !important; font-size: 18px !important; font-weight: 700 !important; }',
+    '.pfield .pv { font-size: 18px; font-weight: 700; }',
+    '.scanner-topbar-left { font-size: 18px; font-weight: 700; }',
+    '#open-log-btn { font-size: 14px; padding: 10px 14px; }',
+    '.dest-row { font-size: 15px; }',
+    '.dest-row .pill { font-size: 14px; padding: 3px 12px; }',
+  ].join('');
+  document.head.appendChild(style);
 })();
 </script>
 </body>
